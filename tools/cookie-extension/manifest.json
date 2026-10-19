@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "鬼打架 · 淘宝 Cookie 导出",
+  "version": "1.2.0",
+  "minimum_chrome_version": "130",
+  "description": "本地一键导出淘宝 / 天猫登录 Cookie，供鬼打架手动上传。无需 Python。",
+  "permissions": ["cookies", "downloads", "scripting"],
+  "host_permissions": ["https://*.taobao.com/*", "https://*.tmall.com/*"],
+  "action": {
+    "default_title": "导出淘宝 Cookie",
+    "default_popup": "popup.html"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'; connect-src 'none'"
+  }
+}

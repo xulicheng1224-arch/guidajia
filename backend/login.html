@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" type="image/jpeg" href="/brand/guidajia.jpg" />
+    <link rel="apple-touch-icon" href="/brand/guidajia.jpg" />
+    <title>登录 · 鬼打架</title>
+    <script nonce="__NONCE__">
+      (() => {
+        let preference = "system";
+        try {
+          preference =
+            JSON.parse(localStorage.getItem("monitor-view-preferences") || "{}")
+              .theme || "system";
+        } catch {}
+        const query = matchMedia("(prefers-color-scheme: dark)");
+        const apply = () =>
+          (document.documentElement.dataset.theme =
+            preference === "dark" || (preference === "system" && query.matches)
+              ? "dark"
+              : "light");
+        apply();
+        query.addEventListener("change", apply);
+      })();
+    </script>
+    <style nonce="__NONCE__">
+      :root {
+        color-scheme: light;
+        --bg: #edf3f9;
+        --text: #24344b;
+        --muted: #61728a;
+        --glass: #ffffff9e;
+        --line: #9aafce40;
+        --edge: #ffffffdf;
+        --field: #ffffff80;
+        --blue: #465bc3;
+        --wash-blue: #cbd9f599;
+        --wash-mint: #d3ebe899;
+        --error: #b73546;
+      }
+      :root[data-theme="dark"] {
+        color-scheme: dark;
+        --bg: #101a2a;
+        --text: #e4ecf8;
+        --muted: #a4b4ca;
+        --glass: #1c2a3ea6;
+        --line: #a9c2e32e;
+        --edge: #bfd5ff17;
+        --field: #101c2d80;
+        --blue: #a3b3ff;
+        --wash-blue: #344b7877;
+        --wash-mint: #24505155;
+        --error: #ffa1b0;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background:
+          radial-gradient(
+            ellipse at 12% 10%,
+            var(--wash-blue),
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse at 90% 85%,
+            var(--wash-mint),
+            transparent 60%
+          ),
+          var(--bg);
+        color: var(--text);
+        font:
+          17px/1.75 "PingFang SC",
+          "PingFang TC",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Microsoft YaHei",
+          sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      main {
+        width: 100%;
+        max-width: 460px;
+        padding: 36px;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: var(--glass);
+        backdrop-filter: blur(28px) saturate(125%);
+        -webkit-backdrop-filter: blur(28px) saturate(125%);
+        box-shadow:
+          inset 0 1px var(--edge),
+          0 24px 80px -30px #0c244b33;
+        animation: arrive 650ms cubic-bezier(0.22, 1, 0.36, 1) both;
+      }
+      @keyframes arrive {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .brand {
+        color: var(--text);
+        font-weight: 650;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 26px;
+      }
+      .brand img {
+        width: 56px;
+        height: 56px;
+        object-fit: cover;
+        border: 1px solid var(--line);
+        border-radius: 15px;
+        box-shadow: 0 3px 10px #172c4515;
+      }
+      h1 {
+        margin: 24px 0 6px;
+        font-size: 30px;
+        font-weight: 650;
+        letter-spacing: -0.03em;
+      }
+      p {
+        color: var(--muted);
+        margin: 0 0 24px;
+      }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 550;
+      }
+      input,
+      button {
+        width: 100%;
+        font: inherit;
+        border-radius: 11px;
+        padding: 12px 14px;
+        transition:
+          border-color 200ms,
+          background-color 200ms,
+          box-shadow 200ms,
+          transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      input {
+        border: 1px solid var(--line);
+        background: var(--field);
+        color: var(--text);
+      }
+      input::placeholder {
+        color: var(--muted);
+      }
+      input:focus {
+        outline: none;
+        box-shadow: 0 0 0 4px #7186e426;
+        border-color: var(--blue);
+      }
+      button {
+        margin-top: 18px;
+        border: 1px solid #ffffff24;
+        background: linear-gradient(#ffffff0f, #ffffff00), #465bc3;
+        color: white;
+        cursor: pointer;
+        font-weight: 600;
+        box-shadow:
+          inset 0 1px #ffffff26,
+          0 4px 12px #263e8c20;
+      }
+      button:hover:not(:disabled) {
+        background-color: #526bd4;
+        box-shadow:
+          inset 0 1px #ffffff26,
+          0 6px 18px #263e8c30;
+      }
+      button:active:not(:disabled) {
+        transform: translateY(1px);
+      }
+      button:focus-visible {
+        outline: 3px solid var(--blue);
+        outline-offset: 3px;
+      }
+      button:disabled {
+        opacity: 0.6;
+        cursor: wait;
+      }
+      .hint {
+        font-size: 15px;
+        margin: 24px 0 0;
+        line-height: 1.9;
+      }
+      #error {
+        min-height: 24px;
+        margin-top: 10px;
+        color: var(--error);
+        font-size: 16px;
+      }
+      form > input,
+      #confirm-password {
+        margin-bottom: 16px;
+      }
+      [hidden] {
+        display: none !important;
+      }
+      .account-tabs {
+        display: flex;
+        gap: 4px;
+        padding: 4px;
+        margin-bottom: 24px;
+        background: var(--field);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+      }
+      .account-tabs button {
+        width: 50%;
+        margin: 0;
+        padding: 8px;
+        color: var(--muted);
+        background: transparent;
+        box-shadow: none;
+        border: 1px solid transparent;
+      }
+      .account-tabs button[aria-pressed="true"] {
+        background: var(--glass);
+        color: var(--text);
+        border-color: var(--line);
+      }
+      .account-tabs button:hover:not(:disabled) {
+        background: var(--glass);
+        box-shadow: none;
+      }
+      .remember {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 15px;
+        color: var(--muted);
+      }
+      .remember input {
+        width: 17px;
+        height: 17px;
+        margin: 0;
+        accent-color: var(--blue);
+      }
+      @media (max-width: 480px) {
+        main {
+          padding: 28px 24px;
+          border-radius: 20px;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+      @supports not (
+        (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+      ) {
+        main {
+          background: var(--bg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="brand">
+        <img
+          src="/brand/guidajia.jpg"
+          alt="鬼打架"
+          width="56"
+          height="56"
+        /><span>鬼打架</span>
+      </div>
+      <h1 id="heading">登录你的工作空间</h1>
+      <p id="description">跟踪硬件价格，保留自己的升级计划。</p>
+      <div class="account-tabs" role="group" aria-label="账号操作">
+        <button type="button" id="login-tab" aria-pressed="true">登录</button>
+        <button type="button" id="register-tab" aria-pressed="false">
+          注册
+        </button>
+      </div>
+      <form id="login">
+        <label for="email">邮箱账号</label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          autocomplete="username"
+          required
+          maxlength="254"
+          placeholder="name@example.com"
+        />
+        <label for="password">密码</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          required
+          maxlength="128"
+          placeholder="输入密码"
+        />
+        <div id="confirm-row" hidden>
+          <label for="confirm-password">确认密码</label>
+          <input
+            id="confirm-password"
+            type="password"
+            autocomplete="new-password"
+            maxlength="128"
+            placeholder="再次输入密码"
+          />
+        </div>
+        <label class="remember" id="remember-row"
+          ><input id="remember" type="checkbox" />记住登录 30 天</label
+        >
+        <button id="submit" type="submit">登录</button>
+        <div id="error" role="alert" aria-live="polite"></div>
+      </form>
+      <details class="hint"><summary>登录帮助</summary><p id="hint">忘记密码请联系管理员重置。</p></details>
+    </main>
+    <script nonce="__NONCE__">
+      const form = document.getElementById("login");
+      const button = document.getElementById("submit");
+      const error = document.getElementById("error");
+      let registering = false;
+      let busy = false;
+      function setMode(value) {
+        if (busy) return;
+        registering = value;
+        document.getElementById("heading").textContent = value
+          ? "创建你的工作空间"
+          : "登录你的工作空间";
+        document.getElementById("description").textContent = value
+          ? "从一件想买的硬件开始，积累自己的价格记录。"
+          : "跟踪硬件价格，保留自己的升级计划。";
+        document.getElementById("confirm-row").hidden = !value;
+        document.getElementById("confirm-password").required = value;
+        document.getElementById("remember-row").hidden = value;
+        document.getElementById("password").autocomplete = value
+          ? "new-password"
+          : "current-password";
+        document.getElementById("password").placeholder = value
+          ? "8–128 位，包含字母和数字"
+          : "输入密码";
+        document
+          .getElementById("login-tab")
+          .setAttribute("aria-pressed", String(!value));
+        document
+          .getElementById("register-tab")
+          .setAttribute("aria-pressed", String(value));
+        document.getElementById("hint").textContent = value
+          ? "账号只需符合邮箱格式，无需真实邮箱或验证码。注册后即为普通用户，数据与你的账号独立关联。"
+          : "忘记密码请联系管理员重置。";
+        document.getElementById("password").value = "";
+        document.getElementById("confirm-password").value = "";
+        button.textContent = value ? "注册并进入" : "登录";
+        error.textContent = "";
+      }
+      document
+        .getElementById("login-tab")
+        .addEventListener("click", () => setMode(false));
+      document
+        .getElementById("register-tab")
+        .addEventListener("click", () => setMode(true));
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        if (busy) return;
+        const password = document.getElementById("password").value;
+        if (
+          registering &&
+          password !== document.getElementById("confirm-password").value
+        ) {
+          error.textContent = "两次输入的密码不一致";
+          return;
+        }
+        busy = true;
+        button.disabled = true;
+        button.textContent = registering ? "正在创建…" : "正在登录…";
+        error.textContent = "";
+        try {
+          const response = await fetch(
+            registering ? "/api/access/register" : "/api/access/login",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                email: document.getElementById("email").value.trim(),
+                password,
+                remember:
+                  !registering && document.getElementById("remember").checked,
+              }),
+            },
+          );
+          const result = await response.json();
+          if (result.code === "https_required" && result.redirect) {
+            const destination = new URL(result.redirect);
+            if (
+              destination.protocol === "https:" &&
+              destination.host === window.location.host
+            ) {
+              window.location.replace(destination.href);
+              return;
+            }
+          }
+          if (!response.ok)
+            throw new Error(result.detail || "操作失败，请重试");
+          window.location.replace("/");
+        } catch (err) {
+          error.textContent = err.message || "连接失败，请重试";
+          busy = false;
+          button.disabled = false;
+          button.textContent = registering ? "注册并进入" : "登录";
+        }
+      });
+    </script>
+  </body>
+</html>

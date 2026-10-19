@@ -1,0 +1,13 @@
+:root { color-scheme: light dark; font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; color: #26354c; background: #f5f8ff; }
+* { box-sizing: border-box; }
+body { width: 360px; margin: 0; padding: 24px; font-size: 14px; line-height: 1.75; }
+.eyebrow { color: #536acc; font-weight: 600; font-size: 12px; }
+h1 { font-size: 22px; line-height: 1.4; margin: 14px 0 12px; }
+p { margin: 12px 0; }
+a { color: #3655cc; text-decoration: none; }
+button { width: 100%; margin: 20px 0 0; padding: 12px; border: 0; border-radius: 12px; background: #315cf6; color: white; font: inherit; cursor: pointer; }
+button:disabled { opacity: .65; cursor: wait; }
+button:focus-visible, a:focus-visible { outline: 2px solid #718cff; outline-offset: 4px; }
+small { display: block; padding-top: 16px; border-top: 1px solid #dbe2f1; color: #64718b; font-size: 12px; }
+#status[data-error="true"] { color: #ad302a; }
+@media (prefers-color-scheme: dark) { :root { color: #e7edff; background: #162238; } a, .eyebrow { color: #a8baff; } small { color: #b0bdd5; border-color: #35445f; } #status[data-error="true"] { color: #ffb0a9; } }

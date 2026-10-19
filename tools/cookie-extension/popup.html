@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>鬼打架 · Cookie 导出</title>
+    <link rel="stylesheet" href="popup.css">
+    <script type="module" src="popup.js"></script>
+  </head>
+  <body>
+    <span class="eyebrow">鬼打架 · 本地导出工具 v1.2.0</span>
+    <h1>带上你的淘宝登录状态</h1>
+    <p>先在当前 Edge / Chrome 登录淘宝，并保持淘宝及目标天猫商品页打开，再点击导出。Mac 与 Windows 通用，无需安装开发环境。</p>
+    <a href="https://login.taobao.com/havanaone/login/login.htm" target="_blank" rel="noopener noreferrer">打开淘宝登录页 ↗</a>
+    <button id="export" type="button">一键导出 Cookie JSON</button>
+    <p id="status" role="status" aria-live="polite">文件将保存到浏览器下载目录，可直接上传到鬼打架「设置 → 淘宝账号」。</p>
+    <small>仅在点击时读取淘宝 / 天猫 Cookie（含 HttpOnly 和分区记录）及当前窗口页面、内嵌淘宝登录页的 localStorage。无法读取已关闭页面的存储，不包含 IndexedDB，不自动上传、不读取其他网站。文件是登录凭证，请妥善保管。</small>
+  </body>
+</html>
