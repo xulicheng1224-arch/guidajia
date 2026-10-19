@@ -6,7 +6,7 @@
 
 ## 在 Mac 上使用
 
-1. 双击 **启动监测.command**，浏览器打开 http://127.0.0.1:8765，使用自己的账号和密码登录。首次全新安装先运行 `.venv/bin/python tools/manage_accounts.py create-admin`，按终端提示设置管理员密码。
+1. 双击 **启动监测.command**，首次运行会自动创建虚拟环境并安装依赖。若提示管理员尚未创建，在项目目录执行 `.venv/bin/python tools/manage_accounts.py create-admin`，按终端提示设置管理员密码，然后再次启动；浏览器会打开 http://127.0.0.1:8765。
 2. 进入 **设置 → 淘宝账号**，选择服务器 Mac 上的 Edge 或 Chrome，点击「在服务器 Mac 登录」。
 3. 在弹出窗口登录淘宝，回到系统点击 **完成登录并保存**。
 4. 在商品库添加淘宝/天猫完整商品链接，开始自动监测。
